@@ -2,7 +2,7 @@ package io.github.aliceboursin.morpionsolitaire.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,46 +35,71 @@ class CellTest {
     }
 
     @Test
-    void shouldTrackUsedDirection() {
+    void shouldIncrementDirectionUseCount() {
         Cell cell = new Cell(new Point(2, 3));
 
-        cell.addUsedDirection(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
 
+        assertEquals(2, cell.getDirectionUseCount(Direction.HORIZONTAL));
         assertTrue(cell.isUsedIn(Direction.HORIZONTAL));
     }
 
     @Test
-    void shouldRemoveUsedDirection() {
+    void shouldTrackDirectionsIndependently() {
         Cell cell = new Cell(new Point(2, 3));
-        cell.addUsedDirection(Direction.HORIZONTAL);
 
-        cell.removeUsedDirection(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.VERTICAL);
+        cell.incrementDirectionUse(Direction.VERTICAL);
 
+        assertEquals(1, cell.getDirectionUseCount(Direction.HORIZONTAL));
+        assertEquals(2, cell.getDirectionUseCount(Direction.VERTICAL));
+    }
+
+    @Test
+    void shouldDecrementDirectionUseCount() {
+        Cell cell = new Cell(new Point(2, 3));
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
+
+        cell.decrementDirectionUse(Direction.HORIZONTAL);
+
+        assertEquals(1, cell.getDirectionUseCount(Direction.HORIZONTAL));
+        assertTrue(cell.isUsedIn(Direction.HORIZONTAL));
+    }
+
+    @Test
+    void shouldRemoveDirectionWhenCountReachesZero() {
+        Cell cell = new Cell(new Point(2, 3));
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
+
+        cell.decrementDirectionUse(Direction.HORIZONTAL);
+
+        assertEquals(0, cell.getDirectionUseCount(Direction.HORIZONTAL));
         assertFalse(cell.isUsedIn(Direction.HORIZONTAL));
     }
 
     @Test
-    void shouldNotStoreDuplicateDirections() {
+    void shouldRejectDecrementOfUnusedDirection() {
         Cell cell = new Cell(new Point(2, 3));
 
-        cell.addUsedDirection(Direction.HORIZONTAL);
-        cell.addUsedDirection(Direction.HORIZONTAL);
-
-        assertEquals(1, cell.getUsedDirections().size());
+        assertThrows(
+                IllegalStateException.class,
+                () -> cell.decrementDirectionUse(Direction.HORIZONTAL)
+        );
     }
 
     @Test
-    void shouldNotExposeMutableUsedDirections() {
+    void shouldNotExposeMutableDirectionUseCounts() {
         Cell cell = new Cell(new Point(2, 3));
-        cell.addUsedDirection(Direction.HORIZONTAL);
+        cell.incrementDirectionUse(Direction.HORIZONTAL);
 
-        Set<Direction> directions = cell.getUsedDirections();
+        Map<Direction, Integer> counts = cell.getDirectionUseCounts();
 
         assertThrows(
                 UnsupportedOperationException.class,
-                () -> directions.add(Direction.VERTICAL)
+                () -> counts.put(Direction.VERTICAL, 1)
         );
-
-        assertFalse(cell.isUsedIn(Direction.VERTICAL));
     }
 }

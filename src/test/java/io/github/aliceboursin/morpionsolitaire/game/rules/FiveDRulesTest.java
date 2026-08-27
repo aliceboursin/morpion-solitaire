@@ -44,7 +44,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .addUsedDirection(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.HORIZONTAL);;
 
         Move move = new Move(
                 new Point(0, 4),
@@ -65,7 +65,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .addUsedDirection(Direction.VERTICAL);
+                .incrementDirectionUse(Direction.VERTICAL);
 
         Move move = new Move(
                 new Point(0, 4),
@@ -95,7 +95,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .addUsedDirection(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.HORIZONTAL);
 
         Move move = new Move(
                 new Point(2, 2),
@@ -125,7 +125,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 4))
-                .addUsedDirection(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.HORIZONTAL);
 
         Move move = new Move(
                 new Point(0, 8),
@@ -146,7 +146,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .addUsedDirection(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.HORIZONTAL);
 
         Move forbiddenMove = new Move(
                 new Point(0, 4),
