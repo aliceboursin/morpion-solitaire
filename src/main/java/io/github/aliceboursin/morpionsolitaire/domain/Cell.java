@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * Represents the state of a position on the game grid.
+ * Represents the state of a position on the game board.
  */
 public class Cell {
 
@@ -27,8 +27,17 @@ public class Cell {
         return status;
     }
 
-    public void setStatus(CellStatus status) {
-        this.status = status;
+    public boolean isOccupied() {
+        return status == CellStatus.OCCUPIED;
+    }
+
+    public void occupy() {
+        status = CellStatus.OCCUPIED;
+    }
+
+    public void clear() {
+        status = CellStatus.EMPTY;
+        usedDirections.clear();
     }
 
     public Set<Direction> getUsedDirections() {

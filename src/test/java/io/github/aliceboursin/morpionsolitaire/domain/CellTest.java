@@ -25,11 +25,12 @@ class CellTest {
     }
 
     @Test
-    void shouldUpdateStatus() {
+    void shouldBecomeOccupied() {
         Cell cell = new Cell(new Point(2, 3));
 
-        cell.setStatus(CellStatus.OCCUPIED);
+        cell.occupy();
 
+        assertTrue(cell.isOccupied());
         assertEquals(CellStatus.OCCUPIED, cell.getStatus());
     }
 

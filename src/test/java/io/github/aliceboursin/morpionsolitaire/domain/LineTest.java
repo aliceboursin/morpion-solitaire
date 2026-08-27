@@ -76,4 +76,19 @@ class LineTest {
         assertEquals(Line.LENGTH, line.points().size());
         assertEquals(5, Line.LENGTH);
     }
+
+    @Test
+    void shouldCountCommonPoints() {
+        Line first = new Line(
+                new Point(0, 0),
+                Direction.HORIZONTAL
+        );
+
+        Line second = new Line(
+                new Point(0, 2),
+                Direction.HORIZONTAL
+        );
+
+        assertEquals(3, first.countCommonPoints(second));
+    }
 }
