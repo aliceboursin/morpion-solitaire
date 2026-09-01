@@ -6,10 +6,10 @@ package io.github.aliceboursin.morpionsolitaire.domain;
  */
 public enum Direction {
 
-    HORIZONTAL(0, 1),
-    VERTICAL(1, 0),
-    DIAGONAL_ASCENDING(1, -1),
-    DIAGONAL_DESCENDING(1, 1);
+    HORIZONTAL(1, 0),
+    VERTICAL(0, 1),
+    DIAGONAL_ASCENDING(1, 1),
+    DIAGONAL_DESCENDING(1, -1);
 
     private final int dx;
     private final int dy;

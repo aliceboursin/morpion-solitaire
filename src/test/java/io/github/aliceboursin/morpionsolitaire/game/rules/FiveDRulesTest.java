@@ -27,7 +27,7 @@ class FiveDRulesTest extends RulesTestSupport {
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -44,11 +44,11 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .incrementDirectionUse(Direction.HORIZONTAL);;
+                .incrementDirectionUse(Direction.VERTICAL);
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -65,11 +65,11 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .incrementDirectionUse(Direction.VERTICAL);
+                .incrementDirectionUse(Direction.HORIZONTAL);
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -90,16 +90,16 @@ class FiveDRulesTest extends RulesTestSupport {
         );
 
         state.addPlacedLine(
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .incrementDirectionUse(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.VERTICAL);
 
         Move move = new Move(
                 new Point(2, 2),
-                new Line(new Point(-2, 2), Direction.VERTICAL)
+                new Line(new Point(-2, 2), Direction.HORIZONTAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -120,16 +120,16 @@ class FiveDRulesTest extends RulesTestSupport {
         );
 
         state.addPlacedLine(
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         state.getBoard()
                 .getCell(new Point(0, 4))
-                .incrementDirectionUse(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.VERTICAL);
 
         Move move = new Move(
                 new Point(0, 8),
-                new Line(new Point(0, 4), Direction.HORIZONTAL)
+                new Line(new Point(0, 4), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -146,11 +146,11 @@ class FiveDRulesTest extends RulesTestSupport {
 
         state.getBoard()
                 .getCell(new Point(0, 2))
-                .incrementDirectionUse(Direction.HORIZONTAL);
+                .incrementDirectionUse(Direction.VERTICAL);
 
         Move forbiddenMove = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         List<Move> moves = rules.findLegalMoves(state);

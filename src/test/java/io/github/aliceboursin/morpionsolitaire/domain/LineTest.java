@@ -12,7 +12,7 @@ class LineTest {
     void shouldGenerateFiveConsecutivePoints() {
         Line line = new Line(
                 new Point(2, 3),
-                Direction.HORIZONTAL
+                Direction.VERTICAL
         );
 
         List<Point> expected = List.of(
@@ -30,7 +30,7 @@ class LineTest {
     void shouldReturnCorrectEndPoint() {
         Line line = new Line(
                 new Point(2, 3),
-                Direction.VERTICAL
+                Direction.HORIZONTAL
         );
 
         assertEquals(new Point(6, 3), line.end());
@@ -40,7 +40,7 @@ class LineTest {
     void shouldContainPointBelongingToLine() {
         Line line = new Line(
                 new Point(2, 3),
-                Direction.DIAGONAL_DESCENDING
+                Direction.DIAGONAL_ASCENDING
         );
 
         assertTrue(line.contains(new Point(4, 5)));
@@ -50,7 +50,7 @@ class LineTest {
     void shouldNotContainPointOutsideLine() {
         Line line = new Line(
                 new Point(2, 3),
-                Direction.HORIZONTAL
+                Direction.VERTICAL
         );
 
         assertFalse(line.contains(new Point(3, 4)));
@@ -60,7 +60,7 @@ class LineTest {
     void shouldNotContainPointBeyondLineEnd() {
         Line line = new Line(
                 new Point(2, 3),
-                Direction.HORIZONTAL
+                Direction.VERTICAL
         );
 
         assertFalse(line.contains(new Point(2, 8)));
@@ -81,12 +81,12 @@ class LineTest {
     void shouldCountCommonPoints() {
         Line first = new Line(
                 new Point(0, 0),
-                Direction.HORIZONTAL
+                Direction.VERTICAL
         );
 
         Line second = new Line(
                 new Point(0, 2),
-                Direction.HORIZONTAL
+                Direction.VERTICAL
         );
 
         assertEquals(3, first.countCommonPoints(second));

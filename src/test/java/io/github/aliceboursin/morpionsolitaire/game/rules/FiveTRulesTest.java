@@ -7,10 +7,10 @@ import io.github.aliceboursin.morpionsolitaire.game.GameState;
 import io.github.aliceboursin.morpionsolitaire.game.Move;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
 
 class FiveTRulesTest extends RulesTestSupport {
 
@@ -27,7 +27,7 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -44,7 +44,7 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move move = new Move(
                 new Point(10, 10),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -62,7 +62,7 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -78,7 +78,7 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move move = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -95,12 +95,12 @@ class FiveTRulesTest extends RulesTestSupport {
         );
 
         state.addPlacedLine(
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         Move move = new Move(
                 new Point(0, 5),
-                new Line(new Point(0, 1), Direction.HORIZONTAL)
+                new Line(new Point(0, 1), Direction.VERTICAL)
         );
 
         assertFalse(rules.isLegal(state, move));
@@ -121,12 +121,12 @@ class FiveTRulesTest extends RulesTestSupport {
         );
 
         state.addPlacedLine(
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         Move move = new Move(
                 new Point(2, 2),
-                new Line(new Point(-2, 2), Direction.VERTICAL)
+                new Line(new Point(-2, 2), Direction.HORIZONTAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -146,12 +146,12 @@ class FiveTRulesTest extends RulesTestSupport {
         );
 
         state.addPlacedLine(
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         Move move = new Move(
                 new Point(0, 8),
-                new Line(new Point(0, 4), Direction.HORIZONTAL)
+                new Line(new Point(0, 4), Direction.VERTICAL)
         );
 
         assertTrue(rules.isLegal(state, move));
@@ -177,7 +177,7 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move expectedMove = new Move(
                 new Point(0, 4),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         List<Move> moves = rules.findLegalMoves(state);
@@ -195,14 +195,13 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move expectedMove = new Move(
                 new Point(0, 2),
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         List<Move> moves = rules.findLegalMoves(state);
 
         assertTrue(moves.contains(expectedMove));
     }
-
 
     @Test
     void shouldFindMultipleLinesForSamePointInSameDirection() {
@@ -217,12 +216,12 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Move firstMove = new Move(
                 playedPoint,
-                new Line(new Point(0, 0), Direction.HORIZONTAL)
+                new Line(new Point(0, 0), Direction.VERTICAL)
         );
 
         Move secondMove = new Move(
                 playedPoint,
-                new Line(new Point(0, 1), Direction.HORIZONTAL)
+                new Line(new Point(0, 1), Direction.VERTICAL)
         );
 
         List<Move> moves = rules.findLegalMoves(state);
@@ -235,13 +234,13 @@ class FiveTRulesTest extends RulesTestSupport {
     void shouldFindMultipleMovesForSamePointInDifferentDirections() {
         GameState state = new GameState();
 
-        // Horizontal line around the future point (0, 0).
+        // Vertical line around the future point (0, 0).
         state.getBoard().occupy(new Point(0, -2));
         state.getBoard().occupy(new Point(0, -1));
         state.getBoard().occupy(new Point(0, 1));
         state.getBoard().occupy(new Point(0, 2));
 
-        // Vertical line around the same future point.
+        // Horizontal line around the same future point.
         state.getBoard().occupy(new Point(-2, 0));
         state.getBoard().occupy(new Point(-1, 0));
         state.getBoard().occupy(new Point(1, 0));
@@ -249,19 +248,19 @@ class FiveTRulesTest extends RulesTestSupport {
 
         Point playedPoint = new Point(0, 0);
 
-        Move horizontalMove = new Move(
-                playedPoint,
-                new Line(new Point(0, -2), Direction.HORIZONTAL)
-        );
-
         Move verticalMove = new Move(
                 playedPoint,
-                new Line(new Point(-2, 0), Direction.VERTICAL)
+                new Line(new Point(0, -2), Direction.VERTICAL)
+        );
+
+        Move horizontalMove = new Move(
+                playedPoint,
+                new Line(new Point(-2, 0), Direction.HORIZONTAL)
         );
 
         List<Move> moves = rules.findLegalMoves(state);
 
-        assertTrue(moves.contains(horizontalMove));
         assertTrue(moves.contains(verticalMove));
+        assertTrue(moves.contains(horizontalMove));
     }
 }
