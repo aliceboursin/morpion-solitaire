@@ -65,4 +65,8 @@ public class Board {
     public Collection<Cell> getCells() {
         return Collections.unmodifiableCollection(cells.values());
     }
+
+    public void remove(Point position) {
+        cells.remove(position);
+    }
 }

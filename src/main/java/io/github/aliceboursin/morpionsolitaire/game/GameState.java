@@ -42,4 +42,12 @@ public class GameState {
     public void incrementScore() {
         score++;
     }
+
+    public void removePlacedLine(Line line) {
+        placedLines.remove(line);
+    }
+
+    public void decrementScore() {
+        score--;
+    }
 }
