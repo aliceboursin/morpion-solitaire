@@ -65,6 +65,15 @@
                 <version>0.0.8</version>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>io.github.aliceboursin.morpionsolitaire.console.ConsoleDemo</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
